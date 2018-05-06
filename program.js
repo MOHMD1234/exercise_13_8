@@ -9,14 +9,15 @@ server.on('request', function (request, response) {
 	       fs.readFile('./index.html', 'utf-8', function (err, data){
 	       		response.write(data);
 				response.end();
-				if (err) {
-					fs.readFile('./cat.png', 'binary', function(err, file) {
-			        	response.writeHead(200, {'Content-Type': 'image/png'});
-			        	response.write(file, 'binary');
-			        	response.end();
-		    		});
-				}
 			});
+		}	else {
+				response.statusCode = 404;
+				fs.readFile('./cat.png', 'binary', function(err, file) {
+		        	response.writeHead(200, {'Content-Type': 'image/png'});
+		        	response.write(file, 'binary');
+		        	response.end();
+	    		
+				});
 	    }
 		
 });
